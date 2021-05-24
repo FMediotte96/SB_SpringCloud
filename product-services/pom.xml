@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>app.productos</groupId>
-    <artifactId>springboot-product-services</artifactId>
+    <artifactId>product-services</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-product-services</name>
-    <description>Demo project for Spring Boot</description>
+    <name>product-services</name>
+    <description>Product-Service with Spring Boot</description>
     <properties>
         <java.version>11</java.version>
     </properties>
