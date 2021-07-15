@@ -1,0 +1,15 @@
+Existen 3 filtros en Zuul:
+
+- Pre: pre route antes de que se resuelva la ruta, es decir se ejecuta antes de el request sea enrutado.
+Se utiliza para pasar datos al request
+
+- Post: se ejecuta después de que el request haya sido enrutado. Se utiliza para manipular la respuesta,
+como por ejemplo las cabeceras
+
+- Route: se ejecuta durante el enrutado del request, aquí se resuelve la ruta. Se usa para la comunicación
+con el microservicio.
+
+Estos filtros ya estan implementados under the covers, por ejemplo tenemos:
+
+- RibbonRoutingFilter que por debajo utiliza Ribbon, Hystrix y un cliente HTTP por defecto Apache para
+la comunicación y así enrutar los servicios
