@@ -4,20 +4,32 @@ import app.item.model.Item;
 import app.item.model.Producto;
 import app.item.model.service.ItemService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ItemController {
 
+    private static final Logger log = LoggerFactory.getLogger(ItemController.class);
+
     @Autowired
     @Qualifier("feignService")
     private ItemService itemService;
+
+    @Value("${config.text}")
+    private String text;
 
     @GetMapping("/listar")
     public List<Item> listar() {
@@ -41,5 +53,14 @@ public class ItemController {
         producto.setPrecio(500.00);
         item.setProducto(producto);
         return item;
+    }
+
+    @GetMapping("/getConfig")
+    public ResponseEntity<?> getConfig(@Value("${server.port}") String port) {
+        log.info(text);
+        Map<String, String> json = new HashMap<>();
+        json.put("text", text);
+        json.put("port", port);
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 }
